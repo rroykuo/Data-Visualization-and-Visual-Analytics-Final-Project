@@ -17,7 +17,7 @@ bgSelect.addEventListener('change', render);
 orderSelect.addEventListener('change', render);
 categorySelect.addEventListener('change', render);
 
-const cate_arr = ['./dataset/shape.json', './dataset/coutry.json',
+const cate_arr = ['./dataset/shape.json', './dataset/country.json',
   './dataset/city.json', './dataset/datetime.json'];
 
 render();
@@ -34,10 +34,10 @@ function render() {
   // let data = d3.json(dataPath);
   let order = document.getElementById('order').value;
 
-  d3.json(dataPath, function(json){
+  d3.json(dataPath, function(data){
     
-    for (var i=0; i<json.length; i++){
-      json[i]['value'] = parseInt(json[i]['value']);
+    for (var i=0; i<data.length; i++){
+      data[i]['value'] = parseInt(data[i]['value']);
     }
 
     function sort(arr, key, way){
@@ -49,8 +49,9 @@ function render() {
     }
 
     if(order != 2){
-      json = sort(json, 'value', order).slice(0, limit);
+      data = sort(data, 'value', order).slice(0, limit);
     }
+    var json = {'children':data};
   
    
     // var json = {
@@ -84,13 +85,12 @@ function render() {
     // }
   
     if (doShuffle) {
-      json = _.shuffle(json);  
+      json.children = _.shuffle(json.children);  
     }
-  
-    const values = json.map(d => d.value);
+    const values = json.children.map(d => d.value);
     const min = Math.min.apply(null, values);
     const max = Math.max.apply(null, values);
-    const total = json.length;
+    const total = json.children.length;
   
     document.body.style.backgroundColor = bgColor;  
     
@@ -105,32 +105,32 @@ function render() {
       .attr('class', 'd3-tip-outer')
       .offset([-38, 0])
       .html((d, i) => {
-        const item = json[i];
+        const item = json.children[i];
         const color = getColor(i, values.length);
-        return `<div class="d3-tip" style="background-color: ${color}">${item.name} (${item.value})</div><div class="d3-stem" style="border-color: ${color} transparent transparent transparent"></div>`;
-      });
-  
+        return `<div class="d3-tip" style="background-color: ${color}">${item.name} (${item.value})</div>
+        <div class="d3-stem" style="border-color: ${color} transparent transparent transparent"></div>`;
+      })
     
+      
     var margin = {
       left: 25,
       right: 25,
       top: 25,
       bottom: 25
-    };
+    }
   
-    var svg = d3.select('#chart').append('svg')
+    var svg_bbchart = d3.select('#chart').append('svg')
       .attr('viewBox','0 0 ' + (diameter + margin.right) + ' ' + diameter)
-      .attr('width', (diameter + margin.right))
+      .attr('width', (diameter - margin.right))
       .attr('height', diameter)
       .attr('class', 'chart-svg');
   
     var root = d3.hierarchy(json)
       .sum(function(d) { return d.value; });
-  
     bubble(root);
   
-    var node = svg.selectAll('.node')
-      .data(root)
+    var node = svg_bbchart.selectAll('.node')
+      .data(root.children)
       .enter()
       .append('g').attr('class', 'node')
       .attr('transform', function(d) { return 'translate(' + d.x + ' ' + d.y + ')'; })
@@ -143,7 +143,7 @@ function render() {
       .on('mouseout', tip.hide);
   
     node.call(tip);
-
+      
     node.append("text")
       .attr("dy", "0.2em")
       .style("text-anchor", "middle")
@@ -164,9 +164,8 @@ function render() {
       .style('pointer-events', 'none');  
       
     function getItemColor(item) {
-      return getColor(idx++, json.length);
+      return getColor(idx++, json.children.length);
     }
-  
     function getColor(idx, total) {
       const colorList = ['F05A24','EF4E4A','EE3F65','EC297B','E3236C','D91C5C','BC1E60','9E1F63','992271','952480','90278E','7A2A8F','652D90','502980','3B2671','262261','27286D','292D78','2A3384','2B388F','2A4F9F','2965AF','277CC0','2692D0','25A9E0'];
       const colorLookup = [
@@ -189,14 +188,12 @@ function render() {
       }
       return truncate(item.data.name);
     }
-  
     function getValueText(item) {
       if (item.data.value < max / 3.3) {
         return '';
       }
       return item.data.value;
     }
-  
     function truncate(label) {
       const max = 11;
       if (label.length > max) {
@@ -204,20 +201,19 @@ function render() {
       }
       return label;
     }
-  
     function getFontSizeForItem(item) {
       return getFontSize(item.data.value, min, max, total);
     }
-  
     function getFontSize(value, min, max, total) {
       const minPx = 6;
-      const maxPx = 25;
+      const maxPx = 15;
       const pxRange = maxPx - minPx;
       const dataRange = max - min;
       const ratio = pxRange / dataRange;
       const size = Math.min(maxPx, Math.round(value * ratio) + minPx);
       return `${size}px`;
     }
+    
 
   });
 }

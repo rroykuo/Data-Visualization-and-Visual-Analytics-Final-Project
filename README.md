@@ -1,4 +1,4 @@
-# Data-Visualization-and-Visual-Analytics-Final-Project
+# Data Visualization and Visual Analytics Final Project
 ## Basic Info
 - Time - 2022 summer semester
 - Project name - UFO Sightings Data Visualization

@@ -185,32 +185,45 @@ function render() {
       return `${size}px`;
     }
     
-
   });
 }
 
 
-"use strict";
-(function () {
-    function getBillboardWidth() {
-        return document.querySelector(".billboard h1").offsetWidth;
-    }
-    function getWindowWidth() {
-        return window.innerWidth;
-    }
-    function setBillboardContent() {
-        document.querySelector(".billboard h1").textContent = this.value;
-    }
-    function startBillboard() {
-        let billboard = document.querySelector(".billboard h1");
-        let initLeft = getWindowWidth();
-        let timer = setInterval(() => {
-            if (initLeft < getBillboardWidth() * -1) {
-                initLeft = getWindowWidth();
-            }
-            initLeft -= 1;
-            billboard.style.left = initLeft + "px";
-        }, 10);
-    }
-    startBillboard();
-})();
+billboard_iter = 0;
+
+d3.csv("./dataset/comments.csv")
+  .get(function(data) {
+    
+    "use strict";
+    (function () {
+        function getBillboardWidth() {
+            return document.querySelector(".billboard h1").offsetWidth;
+        }
+        function getWindowWidth() {
+            return window.innerWidth;
+        }
+        function setBillboardContent() {
+            document.querySelector(".billboard h1").textContent = data[billboard_iter].comments;
+        }
+        function startBillboard() {
+            
+            let billboard = document.querySelector(".billboard h1");
+            let initLeft = getWindowWidth();
+            let timer = setInterval(() => {
+                if (initLeft < getBillboardWidth() * -1) {
+                    initLeft = getWindowWidth();
+                    billboard_iter += 1;
+                    setBillboardContent();
+                }
+                initLeft -= 1;
+                billboard.style.left = initLeft + "px";
+            }, 10);
+        }
+        setBillboardContent();
+        startBillboard();
+    })();
+
+  });
+
+
+

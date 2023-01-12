@@ -49,40 +49,12 @@ function render() {
     }
 
     if(order != 2){
-      data = sort(data, 'value', order).slice(0, limit);
+      data = sort(data, 'value', order);
     }
+
+    data = data.slice(0, limit);
+    
     var json = {'children':data};
-  
-   
-    // var json = {
-    //   'children': [
-    //     {name: 'Adventure', value: 50},
-    //     {name: 'Brand', value: 42},
-    //     {name: 'Marketing', value: 38},
-    //     {name: 'Consumer', value: 33},
-    //     {name: 'Home & Garden', value: 32},
-    //     {name: 'Research', value: 26},
-    //     {name: 'Mobile', value: 22},
-    //     {name: 'Technology', value: 21},
-    //     {name: 'Entertainment', value: 17},
-    //     {name: 'Digital', value: 15},
-    //     {name: 'Consumer Packaging', value: 13},
-    //     {name: 'Social Media', value: 13},
-    //     {name: 'Finance', value: 12},
-    //     {name: 'Science', value: 6},   
-    //     {name: 'Parenting', value: 6},
-    //     {name: 'Usability', value: 5},
-    //     {name: 'Engineering', value: 4},
-    //     {name: 'Fun', value: 4},
-    //     {name: 'Sports', value: 4},
-    //     {name: 'Reading', value: 4},
-    //     {name: 'Education', value: 3},
-    //     {name: 'Productivity', value: 3},
-    //     {name: 'Games', value: 3},
-    //     {name: 'Pets', value: 2},
-    //     {name: 'Food', value: 1},
-    //   ].slice(0, limit)
-    // }
   
     if (doShuffle) {
       json.children = _.shuffle(json.children);  

@@ -24,14 +24,16 @@ fieldset {
   padding: 15px;
   margin: 0;
   margin-top: 3%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.379);
   border: 1px solid #bbb;
+  border-radius: 10px;
 }
 
 legend {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.959);
   padding: 3px 8px;
   border: 1px solid #bbb;
+  border-radius: 5px;
 }
 
 #container {
@@ -321,19 +323,24 @@ p {
 
 html {
   font-size: 10px;
+  height:100%;
+  overflow:hidden;
 }
 
 #app {
   width: 100%;
-  height: 30vh;
+  height: 20vh;
   margin: 0 auto;
+  margin-top: 2%;
   font-family: "Noto Sans TC", sans-serif;
   position: relative;
+  background-color: rgba(255, 255, 255, 0.142);
+  border-radius: 10px;
 }
 
 .billboard1 {
   position: relative;
-  top: 20%;
+  top: 10%;
   width: 100%;
   height: 50px;
   overflow: hidden;
@@ -341,7 +348,7 @@ html {
 .billboard1 h1 {
   font-size: 2.5rem;
   font-weight: 500;
-  color: #c69556;
+  color: #353432;
   white-space: nowrap;
   position: absolute;
   top: 12px;
@@ -350,7 +357,7 @@ html {
 
 .billboard2 {
   position: relative;
-  top: 20%;
+  top: 10%;
   width: 100%;
   height: 50px;
   overflow: hidden;
@@ -358,7 +365,7 @@ html {
 .billboard2 h1 {
   font-size: 2.5rem;
   font-weight: 500;
-  color: #c69556;
+  color: #353432;
   white-space: nowrap;
   position: absolute;
   top: 12px;
@@ -367,7 +374,7 @@ html {
 
 .billboard3 {
   position: relative;
-  top: 20%;
+  top: 10%;
   width: 100%;
   height: 50px;
   overflow: hidden;
@@ -375,9 +382,119 @@ html {
 .billboard3 h1 {
   font-size: 2.5rem;
   font-weight: 500;
-  color: #c69556;
+  color: #353432;
   white-space: nowrap;
   position: absolute;
   top: 12px;
   left: 768px;
+}
+
+/* ufo */
+.ufo{
+  position: absolute;
+  width: 77px;
+  background: #fff;
+  height: 20px;
+  top: 46%;
+  border-radius: 100%;
+  left: 45%;
+  -webkit-animation-name: ufo;
+  -webkit-animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+}
+@-webkit-keyframes ufo {
+  0%, 50%{
+    -webkit-transform: translateX(1600%)
+      translatey(5000%);
+    box-shadow:0px 0px 60px 20px rgba(255,255,255,1.0);
+    
+  }
+  60%{
+    width:77px; 
+    -webkit-transform: translateX(200%) translatey(1000%);
+  }
+  65%{
+    box-shadow:0px 0px 30px 10px rgba(255,255,255,0.4);
+    -webkit-transform: translateX(-300%) translatey(-250%);
+    width:30px;    
+  }
+  70%{
+    width:35px;
+    box-shadow:0px 0px 30px 20px rgba(255,255,255,0.2);
+  }
+  75%{
+    box-shadow:0px 0px 10px 5px rgba(255,255,255,0.2);
+    -webkit-transform: translateX(300%) translatey(100%)rotate(0deg);    
+    width:40px;
+    height:10px;
+  }
+  80%{
+    -webkit-transform: translateX(150%) translatey(100%) rotate(10deg);       
+    width:300px; 
+    box-shadow:0px 0px 3px 10px rgba(255,255,255,0.4);
+  }
+  100% { 
+    -webkit-transform: translateX(-400000%) translatey(-300000%) rotate(30deg);
+    box-shadow:0px 0px 3px 10px rgba(255,255,255,0.8);
+    width:2000px;
+  }
+}
+
+
+
+/* rotating starscape */
+.grain{
+  height:100%;
+  width:100%;
+  position:absolute;
+  top:0px;
+}
+.sky{
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top:0%;
+  z-index:-1;
+  left: -50%;
+}
+.sky .stars{
+position: relative;
+min-height: 70%;
+width: 100%;
+left: 0%;
+-webkit-animation-name: rotate;
+-webkit-animation-duration: 300s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+bottom: 10%;
+  background:url(https://s.cdpn.io/21555/grain.png);
+}
+
+@media all and (max-height: 700px){
+   .sky .stars{bottom:40%;}
+}
+@media all and (max-height: 300px){
+   .sky .stars{bottom:80%;}
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to { 
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.sky{
+  background: rgb(151,161,173);
+  background: -moz-radial-gradient(center, ellipse cover,  rgb(151,161,173) 1%, rgb(44,80,114) 32%, rgb(13,48,76) 52%, rgb(6,28,51) 82%, rgb(0,4,15) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,rgb(151,161,173)), color-stop(32%,rgb(44,80,114)), color-stop(52%,rgb(13,48,76)), color-stop(82%,rgb(6,28,51)), color-stop(100%,rgb(0,4,15)));
+  background: -webkit-radial-gradient(center, ellipse cover,  rgb(151,161,173) 1%,rgb(44,80,114) 32%,rgb(13,48,76) 52%,rgb(6,28,51) 82%,rgb(0,4,15) 100%);
+  background: -o-radial-gradient(center, ellipse cover,  rgb(151,161,173) 1%,rgb(44,80,114) 32%,rgb(13,48,76) 52%,rgb(6,28,51) 82%,rgb(0,4,15) 100%);
+  background: -ms-radial-gradient(center, ellipse cover,  rgb(151,161,173) 1%,rgb(44,80,114) 32%,rgb(13,48,76) 52%,rgb(6,28,51) 82%,rgb(0,4,15) 100%);
+  background: radial-gradient(ellipse at center,  rgb(151,161,173) 1%,rgb(44,80,114) 32%,rgb(13,48,76) 52%,rgb(6,28,51) 82%,rgb(0,4,15) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#97a1ad', endColorstr='#00040f',GradientType=1 );
+
 }

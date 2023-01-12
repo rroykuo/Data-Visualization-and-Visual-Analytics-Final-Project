@@ -9,11 +9,9 @@ const categorySelect = document.querySelector('#category');
 const options = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 options.forEach((val, i) => limitSelect.options[i] = new Option(val));
 limitSelect.selectedIndex = defaultLimit - 1;
-const bgSelect = document.querySelector('#bg');
-bgSelect.selectedIndex = 0;
+
 
 limitSelect.addEventListener('change', render);
-bgSelect.addEventListener('change', render);
 orderSelect.addEventListener('change', render);
 categorySelect.addEventListener('change', render);
 
@@ -25,12 +23,10 @@ render();
 function render() {
   let idx = 0;
   const limit = limitSelect.selectedIndex + 1;
-  const bgColor = bgSelect.options[bgSelect.selectedIndex].value;
   const doShuffle = orderSelect.selectedIndex == 2;
   document.querySelector('#chart').innerHTML = '';
 
   let dataPath = cate_arr[document.getElementById('category').value];
-  // let data = d3.json(dataPath);
   let order = document.getElementById('order').value;
 
   d3.json(dataPath, function(data){
@@ -63,7 +59,6 @@ function render() {
     const max = Math.max.apply(null, values);
     const total = json.children.length;
   
-    document.body.style.backgroundColor = bgColor;  
     
     var diameter = 600,
         color = d3.scaleOrdinal(d3.schemeCategory20c);

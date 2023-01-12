@@ -22,7 +22,6 @@ const cate_arr = ['./dataset/shape.json', './dataset/country.json',
 
 render();
 
-
 function render() {
   let idx = 0;
   const limit = limitSelect.selectedIndex + 1;
@@ -52,13 +51,13 @@ function render() {
       data = sort(data, 'value', order);
     }
 
+    if(doShuffle){
+      data = _.shuffle(data);
+    }
+
     data = data.slice(0, limit);
     
     var json = {'children':data};
-  
-    if (doShuffle) {
-      json.children = _.shuffle(json.children);  
-    }
     const values = json.children.map(d => d.value);
     const min = Math.min.apply(null, values);
     const max = Math.max.apply(null, values);
@@ -189,3 +188,29 @@ function render() {
 
   });
 }
+
+
+"use strict";
+(function () {
+    function getBillboardWidth() {
+        return document.querySelector(".billboard h1").offsetWidth;
+    }
+    function getWindowWidth() {
+        return window.innerWidth;
+    }
+    function setBillboardContent() {
+        document.querySelector(".billboard h1").textContent = this.value;
+    }
+    function startBillboard() {
+        let billboard = document.querySelector(".billboard h1");
+        let initLeft = getWindowWidth();
+        let timer = setInterval(() => {
+            if (initLeft < getBillboardWidth() * -1) {
+                initLeft = getWindowWidth();
+            }
+            initLeft -= 1;
+            billboard.style.left = initLeft + "px";
+        }, 10);
+    }
+    startBillboard();
+})();

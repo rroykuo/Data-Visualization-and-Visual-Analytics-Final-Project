@@ -286,3 +286,64 @@ text {
   transform-origin: 100% 0;
   z-index: 2;
 }
+
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  color: inherit;
+  list-style: none;
+}
+
+main {
+  display: block;
+}
+
+img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+html {
+  font-size: 10px;
+}
+
+#app {
+  width: 100%;
+  height: 30vh;
+  margin: 0 auto;
+  font-family: "Noto Sans TC", sans-serif;
+  position: relative;
+}
+
+.billboard {
+  position: relative;
+  top: 50%;
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+}
+.billboard h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #c69556;
+  white-space: nowrap;
+  position: absolute;
+  top: 12px;
+  left: 768px;
+}

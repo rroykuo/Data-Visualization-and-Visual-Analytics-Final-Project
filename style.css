@@ -87,7 +87,7 @@ text {
   margin: 0 auto;
   max-width: 675px;
   max-height: 675px;
-  padding-top: 5%;
+  padding-top: 1.5%;
 }
 
 .chart-svg {
@@ -331,14 +331,48 @@ html {
   position: relative;
 }
 
-.billboard {
+.billboard1 {
   position: relative;
-  top: 50%;
+  top: 20%;
   width: 100%;
   height: 50px;
   overflow: hidden;
 }
-.billboard h1 {
+.billboard1 h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #c69556;
+  white-space: nowrap;
+  position: absolute;
+  top: 12px;
+  left: 768px;
+}
+
+.billboard2 {
+  position: relative;
+  top: 20%;
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+}
+.billboard2 h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #c69556;
+  white-space: nowrap;
+  position: absolute;
+  top: 12px;
+  left: 768px;
+}
+
+.billboard3 {
+  position: relative;
+  top: 20%;
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+}
+.billboard3 h1 {
   font-size: 2.5rem;
   font-weight: 500;
   color: #c69556;

@@ -189,37 +189,79 @@ function render() {
 }
 
 
-billboard_iter = 0;
+
+function getRandom(min,max){
+  return Math.floor(Math.random()*(max-min+1))+min;
+};
+
+
+b1 = '.billboard1 h1'
+b2 = '.billboard2 h1'
+b3 = '.billboard3 h1'
 
 d3.csv("./dataset/comments.csv")
   .get(function(data) {
-    
+
     "use strict";
     (function () {
-        function getBillboardWidth() {
-            return document.querySelector(".billboard h1").offsetWidth;
+        function getBillboardWidth(billboard) {
+            return document.querySelector(billboard).offsetWidth;
         }
         function getWindowWidth() {
             return window.innerWidth;
         }
-        function setBillboardContent() {
-            document.querySelector(".billboard h1").textContent = data[billboard_iter].comments;
+        function setBillboardContent(billboard) {
+            document.querySelector(billboard).textContent = data[getRandom(0, data.length-1)].comments;
         }
         function startBillboard() {
             
-            let billboard = document.querySelector(".billboard h1");
-            let initLeft = getWindowWidth();
-            let timer = setInterval(() => {
-                if (initLeft < getBillboardWidth() * -1) {
-                    initLeft = getWindowWidth();
-                    billboard_iter += 1;
-                    setBillboardContent();
+            let billboard1 = document.querySelector(b1);
+            let billboard2 = document.querySelector(b2);
+            let billboard3 = document.querySelector(b3);
+
+            let initLeft1 = getWindowWidth();
+            let initLeft2 = getWindowWidth();
+            let initLeft3 = getWindowWidth();
+            
+            let speed1 = getRandom(1000, 2200) / 1000;
+            let speed2 = getRandom(1000, 2200) / 1000;
+            let speed3 = getRandom(1000, 2200) / 1000;
+            
+
+            let timer1 = setInterval(() => {
+                if (initLeft1 < getBillboardWidth(b1) * -1) {
+                    initLeft1 = getWindowWidth();
+                    setBillboardContent(b1);
+                    speed1 = getRandom(1000, 2200) / 1000;
                 }
-                initLeft -= 1;
-                billboard.style.left = initLeft + "px";
+                initLeft1 -= speed1;
+                billboard1.style.left = initLeft1 + "px";
             }, 10);
+          
+            let timer2 = setInterval(() => {
+                if (initLeft2 < getBillboardWidth(b2) * -1) {
+                    initLeft2 = getWindowWidth();
+                    setBillboardContent(b2);
+                    speed2 = getRandom(1000, 2200) / 1000;
+                }
+                initLeft2 -= speed2;
+                billboard2.style.left = initLeft2 + "px";
+            }, 10);
+ 
+            let timer3 = setInterval(() => {
+              if (initLeft3 < getBillboardWidth(b3) * -1) {
+                  initLeft3 = getWindowWidth();
+                  setBillboardContent(b3);
+                  speed3 = getRandom(1000, 2200) / 1000;
+              }
+              initLeft3 -= speed3;
+              billboard3.style.left = initLeft3 + "px";
+            }, 10);
+
         }
-        setBillboardContent();
+        setBillboardContent(b1);
+        setBillboardContent(b2);
+        setBillboardContent(b3);
         startBillboard();
     })();
 

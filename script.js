@@ -194,6 +194,8 @@ b1 = '.billboard1 h1'
 b2 = '.billboard2 h1'
 b3 = '.billboard3 h1'
 
+
+
 d3.csv("./dataset/comments.csv")
   .get(function(data) {
 
@@ -263,4 +265,14 @@ d3.csv("./dataset/comments.csv")
   });
 
 
+var flipper = false;
 
+$('#icon').mouseenter(function() {
+  clearTimeout(flipper);
+  $(this).addClass('hover')});
+  
+$('#icon').mouseleave(function() {
+  flipper = setTimeout(function() {
+    $('#icon').removeClass('hover')
+  }, 1700)
+})

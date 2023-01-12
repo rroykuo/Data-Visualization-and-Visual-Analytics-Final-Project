@@ -498,3 +498,124 @@ bottom: 10%;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#97a1ad', endColorstr='#00040f',GradientType=1 );
 
 }
+
+
+#icon{
+  width:120px;height:120px;
+  margin:34px auto;
+  position:absolute;
+  top: 0%;
+  right: 5%;
+}
+#icon span{
+  width:100%;height:100%;background:#4f5d73;
+  border-radius:50%;left:0;
+  position:absolute;z-index:2;overflow:hidden
+}
+#icon u{
+  display:block;height:100%;text-align:center;
+  z-index:3;position:relative
+}
+#icon u s,#icon u s:after{
+  width:90px;height:15px;
+  display:inline-block;top:45%;position:relative;
+  border-radius:100%;z-index:2;
+  border-left:0 solid transparent;
+  border-right:0 solid transparent;
+  border-top:15px solid #e0e0d1
+}
+#icon u s:after{
+  content:'';
+  border-bottom:15px solid #e0e0d1;
+  border-top:0;top:-16px;
+  box-shadow:0 4px 0 rgba(0,0,0,.18)
+}
+#icon u s i{
+  width:34px;height:27px;background:#77b3d4;
+  position:absolute;left:50%;margin:-29px 0 0 -18px;
+  border-radius:34px 34px 18px 18px;z-index:3;
+  box-shadow:0 4px 0 rgba(0,0,0,.18)
+}
+
+@-webkit-keyframes float{50%{top:35%}0%{top:45%}}
+@-moz-keyframes float{50%{top:35%}0%{top:45%}}
+@keyframes float{50%{top:35%}0%{top:45%}}
+#icon u s{
+  -webkit-animation:float 2.9s infinite;
+  -moz-animation:float 2.9s infinite;
+  animation:float 2.9s infinite
+}
+
+@-webkit-keyframes fly{30%{-webkit-transform:scale(.7) rotate(-18deg) translateX(34px)}60%{-webkit-transform:scale(.34) rotate(0) translate(-223px,-70px);z-index:3}61%,79%{z-index:1}80%{-webkit-transform:scale(.7) rotate(7deg) translate(160px,70px);z-index:3}}
+@-moz-keyframes fly{30%{-moz-transform:scale(.7) rotate(-18deg) translateX(34px)}60%{-moz-transform:scale(.34) rotate(0) translate(-223px,-70px);z-index:3}61%,79%{z-index:1}80%{-moz-transform:scale(.7) rotate(7deg) translate(160px,70px);z-index:3}}
+@keyframes fly{30%{transform:scale(.7) rotate(-18deg) translateX(34px)}60%{transform:scale(.34) rotate(0) translate(-223px,-70px);z-index:3}61%,79%{z-index:1}80%{transform:scale(.7) rotate(7deg) translate(160px,70px);z-index:3}}
+#icon.hover u{
+  -webkit-animation:fly 1.7s;
+  -moz-animation:fly 1.7s;
+  animation:fly 1.7s
+}
+
+#icon span s{
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  -webkit-animation: zoom 5s infinite;
+  -moz-animation: zoom 5s infinite;
+  animation: zoom 5s infinite;
+  opacity: 0;overflow: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#icon span s:nth-child(1) {
+  background-position: 50% 50%;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  animation-delay: 0s
+}
+#icon span s:nth-child(2) {
+  background-position: 20% 60%;
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s
+}
+#icon span s:nth-child(3) {
+  background-position: -20% -30%;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s
+}
+#icon span s:nth-child(4) {
+  background-position: 40% -80%;
+  -webkit-animation-delay: 3s;
+  -moz-animation-delay: 3s;
+  animation-delay: 3s
+}
+#icon span s:nth-child(5) {
+  background-position: -20% 30%;
+  -webkit-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+  animation-delay: 4s
+}
+
+@-webkit-keyframes zoom{
+0%{opacity:0;-webkit-transform:scale(0.5);-webkit-animation-timing-function:ease-in}
+85%{opacity:1;-webkit-transform:scale(2.8);-webkit-animation-timing-function:linear}
+100%{opacity:0;-webkit-transform:scale(3.5)}}
+@-moz-keyframes zoom{
+0%{opacity:0;-moz-transform:scale(0.5);-moz-animation-timing-function:ease-in}
+85%{opacity:1;-moz-transform:scale(2.8);-moz-animation-timing-function:linear}
+100%{opacity:0;-moz-transform:scale(3.5)}}
+@keyframes zoom{
+0%{opacity:0;transform:scale(0.5);animation-timing-function:ease-in}
+85%{opacity:1;transform:scale(2.8);animation-timing-function:linear}
+100%{opacity:0;transform: scale(3.5)}}

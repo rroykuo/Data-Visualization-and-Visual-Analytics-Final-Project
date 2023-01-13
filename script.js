@@ -342,27 +342,30 @@ function draw(){
  
   d3.csv("./dataset/new.csv", function(data) {
     
+    d3.selectAll('.bar circle').remove();
+    d3.selectAll("#x_axis").remove();
+    d3.selectAll("#y_axis").remove();
     var catt = cat[document.getElementById('category').value];
     // Add X axis
-    x = d3.scaleBand()
+    var x = d3.scaleBand()
       .domain(data.map(function(d) { return d[catt]; }))
       .range([ 0, width ]);
+    
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
       .attr("id", "x_axis");
-
+    
+    
     // Add Y axis
-    y = d3.scaleLinear()
+    var y = d3.scaleLinear()
       .range([ height, 0])
       .domain([0, d3.max(data, function(d) {return d['duration']; })]);
     svg.append("g")
       .call(d3.axisLeft(y))
       .attr("id", "y_axis");
 
-    d3.selectAll('.bar circle').remove();
-    d3.selectAll("x_axis").remove();
-    d3.selectAll("y_axis").remove();
+    
 
     // Add dots
     svg.append('g')

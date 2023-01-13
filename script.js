@@ -6,6 +6,7 @@ const lumInput = document.querySelector('#lum');
 const limitSelect = document.querySelector('#limit');
 const orderSelect = document.querySelector('#order');
 const categorySelect = document.querySelector('#category');
+const scatterSelect = document.querySelector('#scatter');
 const options = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 options.forEach((val, i) => limitSelect.options[i] = new Option(val));
 limitSelect.selectedIndex = defaultLimit - 1;
@@ -14,15 +15,16 @@ limitSelect.selectedIndex = defaultLimit - 1;
 limitSelect.addEventListener('change', render);
 orderSelect.addEventListener('change', render);
 categorySelect.addEventListener('change', render);
+scatterSelect.addEventListener('change', draw);
 
 const cate_arr = ['./dataset/shape.json', './dataset/country.json',
   './dataset/city.json', './dataset/datetime.json'];
-const cat = ['shape', 'country', 'city', 'datetime'];
+
 
 render();
+draw();
 
 function render() {
-  draw();
   let idx = 0;
   const limit = limitSelect.selectedIndex + 1;
   const doShuffle = orderSelect.selectedIndex == 2;
@@ -282,7 +284,7 @@ $('#icon').mouseleave(function() {
 
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
+    width = 600 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
 
 
@@ -297,10 +299,6 @@ var svg = d3.select("#bar")
           "translate(" + margin.left + "," + margin.top + ")");
 
 
-d3.csv("./dataset/new.csv", function(data) {
-  
-
-
 
 // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
 // Its opacity is set to 0: we don't see it by default.
@@ -313,7 +311,6 @@ tooltip = d3.select("#bar")
   .style("border-width", "1px")
   .style("border-radius", "5px")
   .style("padding", "10px")
-})
 
 // A function that change this tooltip when the user hover a point.
 // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
@@ -345,11 +342,17 @@ function draw(){
     d3.selectAll('.bar circle').remove();
     d3.selectAll("#x_axis").remove();
     d3.selectAll("#y_axis").remove();
-    var catt = cat[document.getElementById('category').value];
+
+    var catt = document.getElementById('scatter').value;
+ 
     // Add X axis
+
+    var tmp = data.map(function(d) { return d['country']; });
+    tmp.splice(0, 0, '');
+
     var x = d3.scaleBand()
-      .domain(data.map(function(d) { return d[catt]; }))
-      .range([ 0, width ]);
+      .domain(tmp)
+      .range([ 0, width]);
       
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -360,15 +363,10 @@ function draw(){
     // Add Y axis
     var y = d3.scaleLinear()
       .range([ height, 0])
-      .domain([0, d3.max(data, function(d) {return d['duration']; })]);
+      .domain([d3.min(data, function(d) {return d[catt]; }), d3.max(data, function(d) {return d[catt]; })]);
     svg.append("g")
       .call(d3.axisLeft(y))
       .attr("id", "y_axis");
-
-    if(catt != 'country'){
-      d3.axisBottom(x).tickFormat((d) => '').tickSize(0);
-    }
-    
 
     // Add dots
     svg.append('g')
@@ -376,8 +374,8 @@ function draw(){
       .data(d3.shuffle(data).filter(function(d,i){return i<5000})) // the .filter part is just to keep a few dots on the chart, not all of them
       .enter()
       .append("circle")
-        .attr("cx", function (d) { return x(d[catt]); } )
-        .attr("cy", function (d) { return y(d['duration']); } )
+        .attr("cx", function (d) { return x(d['country']) + 50; } )
+        .attr("cy", function (d) { return y(d[catt]); } )
         .attr("r", 1)
         .style("fill", "#69b3a2")
         .style("opacity", 0.3)

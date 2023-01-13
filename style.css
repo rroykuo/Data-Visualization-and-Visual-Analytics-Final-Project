@@ -87,6 +87,7 @@ text {
 
 .chart {
   margin: 0 auto;
+  margin-left: 15%;
   max-width: 675px;
   max-height: 675px;
   padding-top: 1.5%;
@@ -328,12 +329,14 @@ html {
 }
 
 #app {
-  width: 100%;
-  height: 20vh;
+  width: 95%;
+  height: 15%;
   margin: 0 auto;
-  margin-top: 2%;
+  bottom: 3%;
+  right: 0;
+  left: 0; 
   font-family: "Noto Sans TC", sans-serif;
-  position: relative;
+  position: absolute;
   background-color: rgba(255, 255, 255, 0.142);
   border-radius: 10px;
 }
@@ -619,3 +622,16 @@ bottom: 10%;
 0%{opacity:0;transform:scale(0.5);animation-timing-function:ease-in}
 85%{opacity:1;transform:scale(2.8);animation-timing-function:linear}
 100%{opacity:0;transform: scale(3.5)}}
+
+
+#bar{
+  /* max-width: 675px;
+  max-height: 675px; */
+  width: 30%;
+  height: 45%;
+  margin:34px auto;
+  position:absolute;
+  top: 15%;
+  right: 15%;
+  /* background-color: #000; */
+}

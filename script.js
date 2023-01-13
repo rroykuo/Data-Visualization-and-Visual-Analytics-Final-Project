@@ -17,10 +17,12 @@ categorySelect.addEventListener('change', render);
 
 const cate_arr = ['./dataset/shape.json', './dataset/country.json',
   './dataset/city.json', './dataset/datetime.json'];
+const cat = ['shape', 'country', 'city', 'datetime'];
 
 render();
 
 function render() {
+  draw();
   let idx = 0;
   const limit = limitSelect.selectedIndex + 1;
   const doShuffle = orderSelect.selectedIndex == 2;
@@ -276,3 +278,108 @@ $('#icon').mouseleave(function() {
     $('#icon').removeClass('hover')
   }, 1700)
 })
+
+
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    width = 460 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+
+
+
+// append the svg object to the body of the page
+var svg = d3.select("#bar")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+
+d3.csv("./dataset/new.csv", function(data) {
+  
+
+
+
+// Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
+// Its opacity is set to 0: we don't see it by default.
+tooltip = d3.select("#bar")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+})
+
+// A function that change this tooltip when the user hover a point.
+// Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
+mouseover = function(d) {
+  tooltip
+    .style("opacity", 1)
+}
+
+ mousemove = function(d) {
+  tooltip
+    .html("The exact value of<br>the Ground Living area is: " + d['duration'])
+    .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+    .style("top", (d3.mouse(this)[1]) + "px")
+}
+
+// A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+mouseleave = function(d) {
+  tooltip
+    .transition()
+    .duration(200)
+    .style("opacity", 0)
+}
+
+function draw(){
+  // var catt = cat[document.getElementById('category').value];
+ 
+  d3.csv("./dataset/new.csv", function(data) {
+    
+    var catt = cat[document.getElementById('category').value];
+    // Add X axis
+    x = d3.scaleBand()
+      .domain(data.map(function(d) { return d[catt]; }))
+      .range([ 0, width ]);
+    svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .attr("id", "x_axis");
+
+    // Add Y axis
+    y = d3.scaleLinear()
+      .range([ height, 0])
+      .domain([0, d3.max(data, function(d) {return d['duration']; })]);
+    svg.append("g")
+      .call(d3.axisLeft(y))
+      .attr("id", "y_axis");
+
+    d3.selectAll('.bar circle').remove();
+    d3.selectAll("x_axis").remove();
+    d3.selectAll("y_axis").remove();
+
+    // Add dots
+    svg.append('g')
+      .selectAll("dot")
+      .data(data.filter(function(d,i){return i<50})) // the .filter part is just to keep a few dots on the chart, not all of them
+      .enter()
+      .append("circle")
+        .attr("cx", function (d) { return x(d[catt]); } )
+        .attr("cy", function (d) { return y(d['duration']); } )
+        .attr("r", 7)
+        .style("fill", "#69b3a2")
+        .style("opacity", 0.3)
+        .style("stroke", "white")
+      .on("mouseover", mouseover )
+      .on("mousemove", mousemove )
+      .on("mouseleave", mouseleave )
+  
+  })
+  
+}

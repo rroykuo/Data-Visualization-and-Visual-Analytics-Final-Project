@@ -350,7 +350,7 @@ function draw(){
     var x = d3.scaleBand()
       .domain(data.map(function(d) { return d[catt]; }))
       .range([ 0, width ]);
-    
+      
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
@@ -365,23 +365,26 @@ function draw(){
       .call(d3.axisLeft(y))
       .attr("id", "y_axis");
 
+    if(catt != 'country'){
+      d3.axisBottom(x).tickFormat((d) => '').tickSize(0);
+    }
     
 
     // Add dots
     svg.append('g')
       .selectAll("dot")
-      .data(data.filter(function(d,i){return i<50})) // the .filter part is just to keep a few dots on the chart, not all of them
+      .data(d3.shuffle(data).filter(function(d,i){return i<5000})) // the .filter part is just to keep a few dots on the chart, not all of them
       .enter()
       .append("circle")
         .attr("cx", function (d) { return x(d[catt]); } )
         .attr("cy", function (d) { return y(d['duration']); } )
-        .attr("r", 7)
+        .attr("r", 1)
         .style("fill", "#69b3a2")
         .style("opacity", 0.3)
         .style("stroke", "white")
       .on("mouseover", mouseover )
       .on("mousemove", mousemove )
-      .on("mouseleave", mouseleave )
+      .on("mouseleave", mouseleave );
   
   })
   
